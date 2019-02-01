@@ -60,7 +60,7 @@ public class RREF {
             }
         }
 //        System.out.println("NOW IN ROW ECHELON FORM");
-        printMatrix(true);
+//        printMatrix(true);
         pivotCol = -1;
         for (pivotRow = matrix.length - 1; pivotRow >= 0; pivotRow--) {
             for (int i = 0; i < matrix[0].length; i++) {
@@ -73,7 +73,7 @@ public class RREF {
                 double factor = 1 / matrix[pivotRow][pivotCol];
                 multiply(matrix[pivotRow], factor);
 //                System.out.println("Multiplying row " + (pivotRow + 1) + " by " + factor);
-                printMatrix(false);
+//                printMatrix(false);
                 for (int i = pivotRow - 1; i >= 0; i--) {
                     factor = -1 * matrix[i][pivotCol];
                     double[] pivotRowArr = Arrays.copyOf(matrix[pivotRow], matrix[0].length);

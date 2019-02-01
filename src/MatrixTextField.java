@@ -2,7 +2,7 @@ public class MatrixTextField extends DoubleTextField {
     private int row, col;
     private double[][] matrix;
 
-    public MatrixTextField(int row, int col, double[][] matrix) {
+    MatrixTextField(int row, int col, double[][] matrix) {
         super();
         this.row = row;
         this.col = col;
@@ -15,11 +15,15 @@ public class MatrixTextField extends DoubleTextField {
         });
     }
 
-    public void update() {
+    void update() {
         setText(Double.toString(matrix[row][col]));
     }
 
-    public int getRow() {
+    void zero() {
+        setText("0");
+    }
+
+    int getRow() {
         return row;
     }
 
@@ -27,7 +31,7 @@ public class MatrixTextField extends DoubleTextField {
         this.row = row;
     }
 
-    public int getCol() {
+    int getCol() {
         return col;
     }
 
@@ -39,7 +43,7 @@ public class MatrixTextField extends DoubleTextField {
         return matrix;
     }
 
-    public void setMatrix(double[][] matrix) {
+    void setMatrix(double[][] matrix) {
         this.matrix = matrix;
     }
 }

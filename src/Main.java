@@ -7,6 +7,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -23,18 +24,19 @@ public class Main extends Application {
     private RREF rref = new RREF(new double[rows][cols]);
 
     private StackPane setupUI() {
-        StackPane root = new StackPane();
+        Text title = new Text("Matrix RREF Solver");
+        title.setFont(Font.font(16));
+        Text subtitle = new Text("by Tarun Boddupalli");
+        subtitle.setFont(Font.font(12));
+        VBox titleBox = new VBox(5, title, subtitle);
+        titleBox.setAlignment(Pos.TOP_CENTER);
 
-        VBox vBox = new VBox(20);
-        vBox.setAlignment(Pos.CENTER);
-
-        HBox rowColFieldContainer = new HBox(5);
-        rowColFieldContainer.setAlignment(Pos.CENTER);
         IntegerTextField rowField = new IntegerTextField(rows);
         IntegerTextField colField = new IntegerTextField(cols);
         addRowsChangeListener(rowField);
         addColsChangeListener(colField);
-        rowColFieldContainer.getChildren().addAll(rowField, new Text("x"), colField);
+        HBox rowColFieldContainer = new HBox(5, rowField, new Text("x"), colField);
+        rowColFieldContainer.setAlignment(Pos.CENTER);
 
         gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
@@ -53,11 +55,16 @@ public class Main extends Application {
             rref.solve();
             getCells().forEach(MatrixTextField::update);
         });
+        Button clearBtn = new Button("Clear");
+        clearBtn.setOnAction(event -> getCells().forEach(MatrixTextField::zero));
+        HBox btnBox = new HBox(5, solveBtn, clearBtn);
+        btnBox.setAlignment(Pos.CENTER);
 
-        vBox.getChildren().addAll(rowColFieldContainer, gridPane, solveBtn);
+        VBox vBox = new VBox(20, titleBox, rowColFieldContainer, gridPane, btnBox);
+        vBox.setAlignment(Pos.CENTER);
 
+        StackPane root = new StackPane(vBox);
         root.setPadding(new Insets(10));
-        root.getChildren().add(vBox);
         return root;
     }
 
@@ -150,11 +157,11 @@ public class Main extends Application {
 
         StackPane root = setupUI();
 
-        Scene scene = new Scene(root, 450, 300);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Matrix RREF Solver");
-        stage.setMinWidth(450);
-        stage.setMinHeight(350);
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
         stage.show();
     }
 
