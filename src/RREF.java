@@ -104,7 +104,7 @@ public class RREF {
         System.out.println("\\begin{align*}\n\\begin{bmatrix}");
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                System.out.printf("%6d ", (int) matrix[i][j]);
+                System.out.printf("%-5.1f ", matrix[i][j]);
                 if (j != matrix[0].length - 1) {
                     System.out.print("&");
                 }
@@ -116,9 +116,9 @@ public class RREF {
 
     public static void main(String[] args) {
         RREF r = new RREF(new double[][]{
-            {1,3,1,1,-1},
-            {-2,-6,-1,0,5},
-            {1,3,2,3,2}
+            {-2,2,1,1,-2},
+                {1,-1,-1,-3,3},
+                {-1,1,-1,-7,5}
         });
         r.solve();
     }
