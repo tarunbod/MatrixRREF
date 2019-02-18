@@ -51,16 +51,21 @@ public class RREF {
                     if (matrix[i][pivotCol] != 0) {
                         double factor = -1 * matrix[i][pivotCol] / matrix[pivotRow][pivotCol];
                         double[] pivotRowArr = Arrays.copyOf(matrix[pivotRow], matrix[0].length);
-                        multiply(pivotRowArr, factor);
+                        if (factor != 1) {
+                            multiply(pivotRowArr, factor);
+                        }
                         add(matrix[i], pivotRowArr);
-                        System.out.println("Multiplying row " + (pivotRow + 1) + " by " + factor + "; adding result to row " + (i + 1) + ".");
+                        if (factor != 1) {
+                            System.out.println("Multiplying row " + (pivotRow + 1) + " by " + factor + "; adding result to row " + (i + 1) + ".");
+                        } else {
+                            System.out.println("Adding row " + (pivotRow + 1) + " to row " + (i + 1) + ".");
+                        }
                         printMatrix();
                     }
                 }
             }
         }
         System.out.println("Now in row echelon form.");
-        printMatrix();
         pivotCol = -1;
         for (pivotRow = matrix.length - 1; pivotRow >= 0; pivotRow--) {
             for (int i = 0; i < matrix[0].length; i++) {
@@ -77,15 +82,20 @@ public class RREF {
                 for (int i = pivotRow - 1; i >= 0; i--) {
                     factor = -1 * matrix[i][pivotCol];
                     double[] pivotRowArr = Arrays.copyOf(matrix[pivotRow], matrix[0].length);
-                    multiply(pivotRowArr, factor);
+                    if (factor != 1) {
+                        multiply(pivotRowArr, factor);
+                    }
                     add(matrix[i], pivotRowArr);
-                    System.out.println("Multiplying row " + (pivotRow + 1) + " by " + factor + "; adding result to row " + (i + 1) + ".");
+                    if (factor != 1) {
+                        System.out.println("Multiplying row " + (pivotRow + 1) + " by " + factor + "; adding result to row " + (i + 1) + ".");
+                    } else {
+                        System.out.println("Adding row " + (pivotRow + 1) + " to row " + (i + 1) + ".");
+                    }
                     printMatrix();
                 }
             }
         }
-       System.out.println("Now in reduced row echelon form.");
-       printMatrix();
+        System.out.println("Now in reduced row echelon form.");
     }
 
     private void multiply(double[] arr, double factor) {
@@ -104,7 +114,11 @@ public class RREF {
         System.out.println("\\begin{align*}\n\\begin{bmatrix}");
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                System.out.printf("%-5.1f ", matrix[i][j]);
+                if (Math.round(matrix[i][j]) == matrix[i][j]) {
+                    System.out.printf("%-5d ", (int) matrix[i][j]);
+                } else {
+                    System.out.printf("%-5.1f ", matrix[i][j]);
+                }
                 if (j != matrix[0].length - 1) {
                     System.out.print("&");
                 }
